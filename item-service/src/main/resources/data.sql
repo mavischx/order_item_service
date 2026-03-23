@@ -1,0 +1,10 @@
+insert into items(item,category,price) values ('Pork','Mains',9.50);
+insert into items(item,category,price) values ('Brocolli','Sides',5);
+insert into items(item,category,price) values ('Salad','Sides',7);
+insert into items(item,category,price) values ('Lasagna','Mains',7);
+insert into items(item,category,price) values ('Chocolate Cake','Deserts',3.50);
+insert into items(item,category,price) values ('Steak','Mains',9.50);
+insert into items(item,category,price) values ('Roast potato','Sides',5);
+insert into items(item,category,price) values ('Salmon','Mains',7);
+insert into items(item,category,price) values ('Burrito','Mains',7);
+insert into items(item,category,price) values ('Apple Pie','Deserts',3.50);
