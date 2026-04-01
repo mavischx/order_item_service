@@ -29,43 +29,62 @@
                 <tbody id="orderTable"></tbody>
             </table>
 
-            <h3>Status Code: <h3 id="statusCode"></h3></h3>
-            <h3>Etag: <h3 id="eTag"></h3></h3>
+            <h3>Status Code: <h3 id="statusCode"></h3>
+            </h3>
+            <h3>Etag: <h3 id="eTag"></h3>
+            </h3>
             <button class="btn btn-primary" id="Refresh" onclick="fetchOrders()">Refresh orders</button>
-<!-- <button class="btn btn-primary" id="Refresh" onclick="fetchOneOrder()">Check order detail</button> -->
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="fetchOneOrder()">
-  Check order detail
-</button> <input type="number" id="getOneOrderId" class="ml-3" style="width:150px" />
+            <!-- <button class="btn btn-primary" id="Refresh" onclick="fetchOneOrder()">Check order detail</button> -->
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                onclick="fetchOneOrder()">
+                Check order detail
+            </button> <input type="number" id="getOneOrderId" class="ml-3" style="width:150px" />
+            <div class="table">
+                <h3>Order details</h3>
+                <p id="customerNameModal"></p>
+                <p id="itemIdModal"></p>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p id="customerNameModal"></p>
-        <p id="itemIdModal"></p>
-        <ul>
-            <li id="itemNameModal"></li>
-            <li id="itemCategoryModal"></li>
-            <li id="itemPriceModal"></li>
-        </ul>
-        <p id="quantityModal"></p>
-        <p id="addressModal"></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+                <p id="itemNameModal"></p>
+                 
+                <p id="itemCategoryModal"></p>
+               
+                <p id="itemPriceModal"></p>
+                   
+
+                <p id="quantityModal"></p>
+                <p id="addressModal"></p>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="">
+                            <h3>Order details</h3>
+                            <p id="customerNameModal"></p>
+                            <p id="itemIdModal"></p>
+                            <ul>
+                                <li id="itemNameModal"></li>
+                                <li id="itemCategoryModal"></li>
+                                <li id="itemPriceModal"></li>
+                            </ul>
+                            <p id="quantityModal"></p>
+                            <p id="addressModal"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row mt-4">
                 <div class="col-md">
                     <h2>Add order</h2>
@@ -90,7 +109,8 @@
                     <button class="btn btn-primary" id="submitOrder" onclick="addOrder()">Submit order</button>
                 </div>
                 <div class="col-md">
-                    <h2 class="d-flex align-items-center">Edit order <input type="number" id="orderEditId" class="ml-3" style="width:150px" /></h2>
+                    <h2 class="d-flex align-items-center">Edit order <input type="number" id="orderEditId" class="ml-3"
+                            style="width:150px" /></h2>
                     <table class="table">
                         <tr>
                             <th>Customer name</th>

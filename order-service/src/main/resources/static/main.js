@@ -79,13 +79,13 @@ function fetchOneOrder() {
 }
 
 function editModal(data) {	
-    document.getElementById('customerNameModal').value = data.orderName;
-    document.getElementById('itemIdModal').value = data.itemId;
-    document.getElementById('quantityModal').value = data.quantity;
-    document.getElementById('addressModal').value = data.address;
-    document.getElementById('itemModal').value = data.itemId.item;
-     document.getElementById('itemCategoryModal').value = data.itemId.category;
-      document.getElementById('itemPriceModal').value = data.itemId.price;
+    document.getElementById('customerNameModal').innerHTML =  data.orderName;
+    document.getElementById('quantityModal').innerHTML = data.quantity;
+    document.getElementById('addressModal').innerHTML = data.delAddress;
+        document.getElementById('itemIdModal').innerHTML = data.item.itemId;
+    document.getElementById('itemNameModal').innerHTML = data.item.menuItem;
+     document.getElementById('itemCategoryModal').innerHTML = data.item.category;
+      document.getElementById('itemPriceModal').innerHTML = data.item.price;
 }
 
 function fetchItems() {
