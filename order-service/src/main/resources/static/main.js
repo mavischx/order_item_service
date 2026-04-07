@@ -2,39 +2,33 @@
 const orderUrl = 'http://localhost:8080/order';
 const itemUrl = 'http://localhost:8081/item';
 
+let storedEtag = null;
+
 function fetchOrders() {
-    fetch(orderUrl, {
-        method: 'GET',
-        cache: 'no-cache',
-        headers: {
-            'Accept': 'application/json'
-            // Can include the If-None-Match header here
-        }
-    })
+    const headers = { 'Accept': 'application/json' };
+    if (storedEtag) headers['If-None-Match'] = storedEtag;
+
+    fetch(orderUrl, { method: 'GET', cache: 'no-store', headers })
         .then(response => {
             console.log('ETag:', response.headers.get('ETag'));
             console.log("Actual Status:", response.status);
-            
+            document.getElementById('statusCode').textContent = response.status;
+
             if (response.status === 200) {
-                document.getElementById('statusCode').textContent = response.status;
+                storedEtag = response.headers.get('ETag');
+                document.getElementById('eTag').textContent = storedEtag;
                 return response.json();
-            }else if (response.status === 304) {
-                document.getElementById('statusCode').textContent = response.status;
-                document.getElementById('eTag').textContent = response.headers.get('ETag');
+            } else if (response.status === 304) {
+                document.getElementById('eTag').textContent = storedEtag;
                 console.log("Data not modified since last fetch. Using cached data.");
-            }
-             else {
+            } else {
                 console.log("Error getting the data..");
             }
-            
         })
         .then(data => {
             if (data) {
-                // Stringify the data and print into the document
-                //document.getElementById('check').textContent = JSON.stringify(data);
                 console.log("FETHED DATA: ", data, "order size: ", data.length);
-                
-                makeOrderTable(data)
+                makeOrderTable(data);
             }
         })
         .catch(error => console.error('Error fetching order info:', error));
@@ -55,6 +49,7 @@ function fetchOneOrder() {
             
             if (response.status === 200) {
                 document.getElementById('statusCode').textContent = response.status;
+                document.getElementById('eTag').textContent = response.headers.get('ETag');
                 return response.json();
             }else if (response.status === 304) {
                 document.getElementById('statusCode').textContent = response.status;
@@ -68,8 +63,6 @@ function fetchOneOrder() {
         })
         .then(data => {
             if (data) {
-                // Stringify the data and print into the document
-                //document.getElementById('check').textContent = JSON.stringify(data);
                 console.log("FETHED DATA: ", data, "order size: ", data.length);
                 
                 editModal(data)
@@ -78,14 +71,15 @@ function fetchOneOrder() {
         .catch(error => console.error('Error fetching order info:', error));
 }
 
-function editModal(data) {	
-    document.getElementById('customerNameModal').value = data.orderName;
-    document.getElementById('itemIdModal').value = data.itemId;
-    document.getElementById('quantityModal').value = data.quantity;
-    document.getElementById('addressModal').value = data.address;
-    document.getElementById('itemModal').value = data.itemId.item;
-     document.getElementById('itemCategoryModal').value = data.itemId.category;
-      document.getElementById('itemPriceModal').value = data.itemId.price;
+function editModal(data) {
+    document.getElementById('customerNameModal').textContent = 'Customer: ' + data.orderName;
+    document.getElementById('itemIdModal').textContent = 'Item ID: ' + data.item.itemId;
+    document.getElementById('quantityModal').textContent = 'Quantity: ' + data.quantity;
+    document.getElementById('addressModal').textContent = 'Address: ' + data.delAddress;
+    document.getElementById('itemNameModal').textContent = data.item ? 'Item: ' + data.item.item : '';
+    document.getElementById('itemCategoryModal').textContent = data.item ? 'Category: ' + data.item.category : '';
+    document.getElementById('itemPriceModal').textContent = data.item ? 'Price: ' + data.item.price : '';
+    $('#exampleModal').modal('show');
 }
 
 function fetchItems() {
@@ -94,7 +88,6 @@ function fetchItems() {
         cache: 'no-cache',
         headers: {
             'Accept': 'application/json'
-            // Can include the If-None-Match header here
         }
     })
         .then(response => {
@@ -102,7 +95,6 @@ function fetchItems() {
             console.log("Actual Status:", response.status);
             
             if (response.status === 200) {
-                //document.getElementById('statusCode').textContent = response.status;
                 return response.json();
             }else {
                 console.log("Error getting the data..");
@@ -111,8 +103,6 @@ function fetchItems() {
         })
         .then(data => {
             if (data) {
-                // Stringify the data and print into the document
-                //document.getElementById('check').textContent = JSON.stringify(data);
                 console.log("FETHED DATA: ", data);
                 makeItemsTable(data)
             }
