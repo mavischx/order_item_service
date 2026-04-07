@@ -162,7 +162,7 @@ function addOrder() {
             document.getElementById('statusCode').textContent = response.status;
             if (response.status === 201) {
                 console.log("Order added successfully");
-
+                ['customerNameAdd', 'itemIdAdd', 'quantityAdd', 'addressAdd'].forEach(id => document.getElementById(id).value = '');
             } else if (response.status === 500) {
                 window.alert("item does not exist");
                 console.log("Internal server error");
@@ -190,9 +190,9 @@ function editOrder() {
     })
         .then(response => {
             document.getElementById('statusCode').textContent = response.status;
-            if (response.status === 201) {
+            if (response.status === 201 || response.status === 200) {
                 console.log("Order edited successfully");
-
+                ['orderEditId', 'customerName', 'itemId', 'quantity', 'address'].forEach(id => document.getElementById(id).value = '');
             } else {
                 console.log("Error editing order");
             }
