@@ -48,11 +48,9 @@ public class OrderController {
 
 		return orders;
 	}
-
+//@RequestHeader(value = "If-None-Match", required = false) String ifNoneMatch
 	@GetMapping("/{id}")
-	public ResponseEntity<OrderResponse> retrieveOneOrder(
-			@PathVariable long id,
-			@RequestHeader(value = "If-None-Match", required = false) String ifNoneMatch) {
+	public ResponseEntity<OrderResponse> retrieveOneOrder(@PathVariable long id) {
 		Optional<Order> order = repository.findById(id);
 
 		if (order.isEmpty()) {
