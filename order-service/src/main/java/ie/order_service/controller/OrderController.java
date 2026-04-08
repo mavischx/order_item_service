@@ -48,7 +48,7 @@ public class OrderController {
 
 		return orders;
 	}
-//@RequestHeader(value = "If-None-Match", required = false) String ifNoneMatch
+
 	@GetMapping("/{id}")
 	public ResponseEntity<OrderResponse> retrieveOneOrder(@PathVariable long id) {
 		Optional<Order> order = repository.findById(id);
@@ -57,11 +57,6 @@ public class OrderController {
 			System.out.println("Order not found");
 			return ResponseEntity.notFound().build();
 		} else {
-			Order orderData = order.get();
-			// String etag = "\"" + orderData.getVersion() + "\"";
-			// if (etag.equals(ifNoneMatch)) {
-		    //     return ResponseEntity.status(304).eTag(etag).build();
-		    // }
 			Item item = itemClient.getItemById(order.get().getItemId());
 			OrderResponse orderResponse = new OrderResponse(order.get(),item);
 			
