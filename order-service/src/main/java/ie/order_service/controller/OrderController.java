@@ -62,8 +62,6 @@ public class OrderController {
 			
 		    
 		    return ResponseEntity.ok(orderResponse);
-		            // .eTag(etag)
-		            // .body(orderResponse);
 		}
 	}
 

@@ -5,10 +5,14 @@ const itemUrl = 'http://localhost:8081/item';
 let storedEtag = null;
 
 function fetchOrders() {
-    const headers = { 'Accept': 'application/json' };
     if (storedEtag) headers['If-None-Match'] = storedEtag;
 
-    fetch(orderUrl, { method: 'GET', cache: 'no-store', headers })
+    fetch(orderUrl, {
+         method: 'GET', 
+         cache: 'no-store', 
+         headers: {
+            'Accept': 'application/json'
+        } })
         .then(response => {
             console.log('ETag:', response.headers.get('ETag'));
             console.log("Actual Status:", response.status);
@@ -20,9 +24,9 @@ function fetchOrders() {
                 return response.json();
             } else if (response.status === 304) {
                 document.getElementById('eTag').textContent = storedEtag;
-                console.log("Data not modified since last fetch. Using cached data.");
+                console.log("Using cached data.");
             } else {
-                console.log("Error getting the data..");
+                console.log("Error getting the data.");
             }
         })
         .then(data => {
