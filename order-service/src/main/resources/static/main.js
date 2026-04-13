@@ -5,14 +5,10 @@ const itemUrl = 'http://localhost:8081/item';
 let storedEtag = null;
 
 function fetchOrders() {
+    const headers = { 'Accept': 'application/json' };
     if (storedEtag) headers['If-None-Match'] = storedEtag;
 
-    fetch(orderUrl, {
-         method: 'GET', 
-         cache: 'no-store', 
-         headers: {
-            'Accept': 'application/json'
-        } })
+    fetch(orderUrl, { method: 'GET', cache: 'no-store', headers })
         .then(response => {
             console.log('ETag:', response.headers.get('ETag'));
             console.log("Actual Status:", response.status);
